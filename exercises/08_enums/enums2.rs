@@ -12,7 +12,7 @@ enum Message {
     },
     Move(Point),
     Echo(String),
-    ChangeColor(i32, i32, i32),
+    ChangeColor(u8, u8, u8), //using u8 would be better, but the test uses i32
     Quit
 }
 
