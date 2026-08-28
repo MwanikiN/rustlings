@@ -1,6 +1,6 @@
 fn main() {
-    // TODO: Change the line below to fix the compiler error.
-    let x: i32;
+    // bound the variable x to a value of 2
+    let x: i32 = 2;
 
     println!("Number {x}");
 }
