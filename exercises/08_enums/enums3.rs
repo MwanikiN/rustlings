@@ -1,17 +1,17 @@
-struct Point {
+struct Point {  //custom data type to represent a point in 2D space
     x: u64,
     y: u64,
 }
 
-enum Message {
-    Resize { width: u64, height: u64 },
-    Move(Point),
-    Echo(String),
-    ChangeColor(u8, u8, u8),
+enum Message {  //custom data type to represent different types of messages
+    Resize { width: u64, height: u64 }, //variant with named fields for resizing
+    Move(Point), //variant with a Point struct for moving
+    Echo(String), //variant with a String for echoing messages
+    ChangeColor(u8, u8, u8), //variant with three u8 values for changing color (RGB) tuple
     Quit,
 }
 
-struct State {
+struct State { //custom data type to represent the state of the application
     width: u64,
     height: u64,
     position: Point,
@@ -44,13 +44,46 @@ impl State {
     }
 
     fn process(&mut self, message: Message) {
-        // TODO: Create a match expression to process the different message
-        // variants using the methods defined above.
+
+        match message {
+            Message::Resize { width, height } => self.resize(width, height),
+            Message::Move(point) => self.move_position(point),
+            Message::Echo(s) => self.echo(s),
+            Message::ChangeColor(r, g, b) => self.change_color(r, g, b),
+            Message::Quit => self.quit(),
+        }
     }
 }
 
 fn main() {
-    // You can optionally experiment here.
+    let mut state = State {
+        width: 0,
+        height: 0,
+        position: Point { x: 0, y: 0 },
+        message: String::from("hello world"),
+        color: (0, 0, 0),
+        quit: false,
+    };
+
+    state.process(Message::Resize {
+        width: 800,
+        height: 600,
+    });
+
+    state.process(Message::Move(Point { x: 100, y: 200 }));
+
+    state.process(Message::Echo(String::from("Hello Rust!")));
+
+    state.process(Message::ChangeColor(255, 0, 128));
+
+    state.process(Message::Quit);
+
+    println!("Width: {}", state.width);
+    println!("Height: {}", state.height);
+    println!("Position: ({}, {})", state.position.x, state.position.y);
+    println!("Message: {}", state.message);
+    println!("Color: {:?}", state.color);
+    println!("Quit: {}", state.quit);
 }
 
 #[cfg(test)]
