@@ -8,6 +8,7 @@ struct Package {
     weight_in_grams: u32,
 }
 
+//associated functions are defined in an impl block
 impl Package {
     fn new(sender_country: String, recipient_country: String, weight_in_grams: u32) -> Self {
         if weight_in_grams < 10 {
@@ -24,19 +25,38 @@ impl Package {
     }
 
     // TODO: Add the correct return type to the function signature.
-    fn is_international(&self) {
+    // This method should return true if the package is being sent to a
+    // different country than the one it is being sent from.
+    fn is_international(&self) -> bool{
         // TODO: Read the tests that use this method to find out when a package
         // is considered international.
+        self.sender_country != self.recipient_country
     }
 
     // TODO: Add the correct return type to the function signature.
-    fn get_fees(&self, cents_per_gram: u32) {
+    fn get_fees(&self, cents_per_gram: u32) -> u32 {
         // TODO: Calculate the package's fees.
+        self.weight_in_grams * cents_per_gram
     }
 }
 
 fn main() {
-    // You can optionally experiment here.
+    let new_package: Package = Package::new(
+        String::from("Spain"),
+        String::from("Russia"),
+        1200,
+    );
+    println!("Is this an international package? {}", new_package.is_international());
+    println!("To parcel the package from {} to {} will cost {} cents",
+     new_package.sender_country, new_package.recipient_country, new_package.get_fees(3));
+
+     let local_package = Package ::new(
+        String::from("Canada"),
+        String::from("Canada"),
+        1200);
+     println!("Is this an international package? {}", local_package.is_international());
+     println!("To parcel the package from {} to {} will cost {} cents",
+     local_package.sender_country, local_package.recipient_country, local_package.get_fees(3));
 }
 
 #[cfg(test)]
