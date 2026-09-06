@@ -16,8 +16,10 @@ impl PositiveNonzeroInteger {
         } else if value < 0 {
             return Err(CreationError::Negative);
         }
-        Ok(Self(value as u64))
+        else {
+            Ok(Self(value as u64))
     }
+}
 }
 
 fn main() {
