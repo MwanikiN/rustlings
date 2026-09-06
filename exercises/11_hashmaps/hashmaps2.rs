@@ -21,10 +21,10 @@ enum Fruit {
 
 fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
     let fruit_kinds = [
-        Fruit::Apple,
-        Fruit::Banana,
-        Fruit::Mango,
-        Fruit::Lychee,
+        Fruit::Apple, //4
+        Fruit::Banana, 
+        Fruit::Mango, //2
+        Fruit::Lychee, //5
         Fruit::Pineapple,
     ];
 
@@ -32,13 +32,25 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
         // TODO: Insert new fruits if they are not already present in the
         // basket. Note that you are not allowed to put any type of fruit that's
         // already present!
+        if !basket.contains_key(&fruit) {
+            basket.insert(fruit, 1);
+        }
+
     }
 }
 
 fn main() {
     // You can optionally experiment here.
-}
+    let mut basket = HashMap::new();
 
+    basket.insert(Fruit::Apple, 4);
+    basket.insert(Fruit::Mango, 2);
+    basket.insert(Fruit::Lychee, 5);
+
+    fruit_basket(&mut basket);
+
+    println!("{:?}", basket);
+}
 #[cfg(test)]
 mod tests {
     use super::*;
