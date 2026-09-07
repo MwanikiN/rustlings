@@ -14,7 +14,9 @@ fn main() {
     let result;
     {
         let string2 = String::from("xyz");
-        result = longest(&string1, &string2);
+        result = longest(&string1, &string2); //string2 will go out of scope at the end of the block, 
+      
+        println!("The longest string is '{result}'");  //but the borrow checker doesn't know that the reference `result` is only used within this block.so we need to move the call to longest() inside the block where string2 is still valid.
     }
-    println!("The longest string is '{result}'");
+    
 }
