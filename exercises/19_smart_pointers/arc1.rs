@@ -23,13 +23,14 @@ fn main() {
     let numbers: Vec<_> = (0..100u32).collect();
 
     // TODO: Define `shared_numbers` by using `Arc`.
-    // let shared_numbers = ???;
+    let shared_numbers = Arc::new(numbers); //owner 
+    // `Arc` allows multiple owners, and therefore can be shared between threads.
 
     let mut join_handles = Vec::new();
 
     for offset in 0..8 {
         // TODO: Define `child_numbers` using `shared_numbers`.
-        // let child_numbers = ???;
+        let child_numbers = Arc::clone(&shared_numbers); //clone creates new pointer to same data
 
         let handle = thread::spawn(move || {
             let sum: u32 = child_numbers.iter().filter(|&&n| n % 8 == offset).sum();
