@@ -28,6 +28,19 @@ impl Planet {
 
 fn main() {
     // You can optionally experiment here.
+    let sun = Rc::new(Sun);
+    let mercury = Planet::Mercury(Rc::clone(&sun));
+    println!("reference count = {}", Rc::strong_count(&sun)); // 2 references
+    mercury.details();
+    let venus = Planet::Venus(Rc::clone(&sun));
+    println!("reference count = {}", Rc::strong_count(&sun));
+    venus.details();
+    let earth = Planet::Earth(Rc::clone(&sun));
+    println!("reference count = {}", Rc::strong_count(&sun));
+    earth.details();
+    let mars = Planet::Mars(Rc::clone(&sun));
+    println!("reference count = {}", Rc::strong_count(&sun));
+    mars.details();
 }
 
 #[cfg(test)]
